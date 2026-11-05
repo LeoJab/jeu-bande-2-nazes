@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bande 2 Nazes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="logo">🤡 BANDE <span>2</span> NAZES</div>
+    <div class="topbtns">
+      <button id="btnRules" class="tbtn">❓ Règles</button>
+      <button id="btnHist" class="tbtn hide">📜</button>
+      <button id="btnSnd" class="tbtn">🔊</button>
+      <button id="btnQuit" class="tbtn hide">🚪</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ACCUEIL -->
+    <section id="home" class="screen on">
+      <div class="panel hero">
+        <h1>BANDE <span>2</span> NAZES</h1>
+        <p class="tag">Forme le message <b>BAND + DE + NAZES</b> avant tes potes… et sabote-les sans pitié !</p>
+        <div id="pseudoWrap" class="hide">
+          <label>Ton pseudo</label>
+          <input id="pseudo" maxlength="20" placeholder="Ton pseudo" value="">
+        </div>
+        <button id="btnCreate" class="btn big">🎉 Créer une salle</button>
+        <div class="or">ou rejoindre une salle</div>
+        <div class="row">
+          <input id="code" maxlength="12" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+          <button id="btnJoin" class="btn">Rejoindre</button>
+        </div>
+        <button id="btnBots" class="btn alt">🤖 S'entraîner contre des robots</button>
+        <p class="small">2 à 5 joueurs · environ 10 minutes</p>
+      </div>
+    </section>
+
+    <!-- SALLE D'ATTENTE -->
+    <section id="lobby" class="screen">
+      <div class="panel lob">
+        <div class="small">Code de la salle</div>
+        <div id="lobCode" class="bigcode">----</div>
+        <ul id="lobList"></ul>
+        <div id="lobMsg" class="small"></div>
+        <div class="row center">
+          <button id="btnAddBot" class="btn alt hide">➕ Ajouter un robot</button>
+          <button id="btnStart" class="btn big hide">▶ Lancer la partie</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- JEU -->
+    <section id="game" class="screen">
+      <div id="opps"></div>
+      <div id="board">
+        <button id="deck" class="pile back"><span class="cnt" id="deckN">0</span><span class="lbl">PIOCHER</span></button>
+        <div id="status"></div>
+        <div id="discard" class="pile"></div>
+      </div>
+      <div id="logbox"></div>
+      <div id="me">
+        <div id="meinfo"></div>
+        <div id="mytable"></div>
+        <div id="hand"></div>
+      </div>
+      <div id="reacts"></div>
+      <div id="defi" class="overlay"></div>
+      <div id="end" class="overlay"></div>
+    </section>
+  </main>
+</div>
+
+<canvas id="fx"></canvas>
+<div id="flash"></div>
+<div id="banner"></div>
+<div id="toast"></div>
+<div id="floats"></div>
+
+<div id="rules" class="modal">
+  <div class="panel rulesbox">
+    <button class="close" data-close>✖</button>
+    <h2>❓ Règles de Bande 2 Nazes</h2>
+    <h3>🎯 But du jeu</h3>
+    <p>Être le <b>premier</b> à avoir devant soi les 3 cartes du message : <b>🎸 BAND</b> + <b>🎲 DE</b> + <b>🤡 NAZES</b>. Dès que c'est fait, tu gagnes !</p>
+    <h3>🕹️ À ton tour</h3>
+    <p>Tu fais <b>une seule</b> des deux actions :</p>
+    <ul>
+      <li><b>Piocher</b> une carte (clique sur la pioche).</li>
+      <li><b>Jouer</b> une carte de ta main : clique dessus pour la sélectionner, puis sur <i>Jouer</i> (ou reclique dessus). Pour une carte qui cible quelqu'un, clique ensuite sur le joueur visé.</li>
+    </ul>
+    <p>Ta main est limitée à <b>6 cartes</b> : à 6, tu ne peux plus piocher, tu dois jouer.</p>
+    <h3>🃏 Cartes message</h3>
+    <ul>
+      <li><b>BAND, DE, NAZES</b> : se posent devant toi.</li>
+      <li><b>JOKER NAZE</b> : se pose aussi, et remplace n'importe quelle carte du message.</li>
+    </ul>
+    <h3>💥 Cartes chaos</h3>
+    <ul id="rulesCards"></ul>
+    <h3>⚠️ Cas particuliers</h3>
+    <ul>
+      <li>Un <b>bouclier</b> annule la prochaine attaque (Voleur, Éléphant, Grenade, Sieste) dirigée contre toi, puis disparaît.</li>
+      <li>Si le message de plusieurs joueurs est complet en même temps (après un échange par exemple), le joueur qui vient de jouer gagne en priorité.</li>
+      <li>Pioche vide : la défausse est mélangée et redevient la pioche.</li>
+      <li>Un joueur qui quitte est remplacé par un robot jusqu'à la fin de la partie.</li>
+      <li>Les parties avec des robots ne comptent pas pour le classement : il faut au moins 2 vrais joueurs.</li>
+    </ul>
+    <button class="btn big" data-close>C'est parti !</button>
+  </div>
+</div>
+
+<div id="hist" class="modal">
+  <div class="panel rulesbox">
+    <button class="close" data-close>✖</button>
+    <h2>📜 Historique</h2>
+    <ul id="histList"></ul>
+  </div>
+</div>
+
+<script src="/_sdk.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
